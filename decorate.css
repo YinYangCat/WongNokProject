@@ -8,6 +8,22 @@
 }
 
 
+/* Logo / Website Title */
+
+.LogoWeb {
+    position: absolute;
+    top: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+.LogoWeb h1 {
+    font-size: 48px;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+
 /* Body style */
 
 body {
@@ -16,6 +32,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 
@@ -28,6 +45,8 @@ body {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 300px;
+    margin-top: 100px;
+    /* pushes the login box below the title */
 }
 
 
@@ -69,3 +88,6 @@ body {
 .btn:hover {
     background-color: #357abd;
 }
+
+
+/* Login/Register tap (form section inside container) */
