@@ -1,89 +1,19 @@
 /* Reset */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 
 /* Logo / Website Title */
-
-.LogoWeb {
-    position: absolute;
-    top: 30px;
-    text-align: center;
-    width: 100%;
-}
-
-.LogoWeb h1 {
-    font-size: 48px;
-    color: white;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-}
 
 
 /* Body style */
 
-body {
-    background: linear-gradient(135deg, #74ebd5, #acb6e5);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-
-/* Container box */
-
-.container {
-    background-color: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 300px;
-    margin-top: 100px;
-    /* pushes the login box below the title */
-}
-
 
 /* Title */
-
-.container h1 {
-    margin-bottom: 30px;
-    color: #333;
-}
 
 
 /* Input boxes */
 
-.input-box {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
 
 /* Button */
-
-.btn {
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
-    border: none;
-    background-color: #4a90e2;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
 
 .btn:hover {
     background-color: #357abd;
