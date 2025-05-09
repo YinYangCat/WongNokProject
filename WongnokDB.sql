@@ -6,10 +6,10 @@ CREATE TABLE photo (
 
 -- 2. Restaurants table
 CREATE TABLE restaurants (
-    res_id VARCHAR(10) PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    phone_no VARCHAR(15) UNIQUE,
-    address VARCHAR(100),
+    res_id VARCHAR(15) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone_no VARCHAR(20) UNIQUE,
+    address VARCHAR(200),
     latitude FLOAT NOT NULL,
     longitude FLOAT NOT NULL,
     avg_rating FLOAT NOT NULL
