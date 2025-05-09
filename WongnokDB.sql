@@ -1,87 +1,89 @@
-CREATE TABLE User(
-    UserID VARCHAR(10) PRIMARY KEY,
-    Name VARCHAR(50) NOT NULL,
-    PasswordHash VARCHAR(255) NOT NULL,
-    Email VARCHAR(50) NOT NULL UNIQUE,
-    PhoneNum VARCHAR(15) NOT NULL UNIQUE, --Phone num may include "+" for international format--
-    ProfilePhotoID VARCHAR(10),
-    CONSTRAINT fk_ProfilePhoto
-		FOREIGN KEY (ProfilePhotoID) REFERENCES Photo(PhotoID)
-		DEFERRABLE INITIALLY DEFERRED
+-- 1. Photo table
+CREATE TABLE photo (
+    photoid VARCHAR(10) PRIMARY KEY,
+    photourl VARCHAR(200) UNIQUE
 );
 
-CREATE TABLE Restaurants(
-    Res_ID VARCHAR(10) PRIMARY KEY,
-    Name VARCHAR(50) NOT NULL,
-    Phone_no INT UNIQUE,
-    Address VARCHAR(100),
-    Latitude FLOAT NOT NULL,
-    Longtitude FLOAT NOT NULL,
-    Avg_Rating FLOAT NOT NULL
+-- 2. Restaurants table
+CREATE TABLE restaurants (
+    res_id VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    phone_no VARCHAR(15) UNIQUE,
+    address VARCHAR(100),
+    latitude FLOAT NOT NULL,
+    longitude FLOAT NOT NULL,
+    avg_rating FLOAT NOT NULL
 );
 
-CREATE TABLE Category(
-    CategoryID VARCHAR(10) PRIMARY KEY,
-    CategoryName VARCHAR(20) NOT NULL
+-- 3. Category table
+CREATE TABLE category (
+    categoryid VARCHAR(10) PRIMARY KEY,
+    categoryname VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE Restaurant_Category(
---Join between Restaurant and Category
-    Res_ID VARCHAR(10),
-    CategoryID VARCHAR(10),
-	CONSTRAINT fk_JoinRes
-    	FOREIGN KEY (Res_ID) REFERENCES Restaurants(Res_ID)
-		DEFERRABLE INITIALLY DEFERRED,
-	CONSTRAINT fk_JoinCat
-    	FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
-		DEFERRABLE INITIALLY DEFERRED
+-- 4. Restaurant_Category (Join Table)
+CREATE TABLE restaurant_category (
+    res_id VARCHAR(10),
+    categoryid VARCHAR(10),
+    CONSTRAINT fk_joinres
+        FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
+        DEFERRABLE INITIALLY DEFERRED,
+    CONSTRAINT fk_joincat
+        FOREIGN KEY (categoryid) REFERENCES category(categoryid)
+        DEFERRABLE INITIALLY DEFERRED
 );
 
-CREATE TABLE Admin(
-    AdminID VARCHAR(10) PRIMARY KEY,
-    UserID VARCHAR(10) UNIQUE,
-    PermissionLevel INT  NOT NULL,
-	CONSTRAINT fk_UserAdmin
-    	FOREIGN KEY (UserID) REFERENCES User(UserID)
-		DEFERRABLE INITIALLY DEFERRED
+-- 5. Users table
+CREATE TABLE users (
+    userid VARCHAR(10) PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    password BYTEA NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    phonenum VARCHAR(15) NOT NULL UNIQUE,
+    profilepic VARCHAR(10),
+    CONSTRAINT fk_profilephoto
+        FOREIGN KEY (profilepic) REFERENCES photo(photoid)
+        DEFERRABLE INITIALLY DEFERRED
 );
 
-CREATE TABLE Review(
-    ReviewID VARCHAR(10) PRIMARY KEY,
-    UserID VARCHAR(10),
-    Res_ID VARCHAR(10),
-    Rating INT NOT NULL,
-    ReviewText VARCHAR(200),
-    Timestamp DATE NOT NULL,
-	CONSTRAINT fk_UserReview
-    	FOREIGN KEY (UserID) REFERENCES User(UserID)
-		DEFERRABLE INITIALLY DEFERRED,
-	CONSTRAINT fk_ResReview
-    	FOREIGN KEY (ResID) REFERENCES Restaurants(Res_ID)
-		DEFERRABLE INITIALLY DEFERRED
+-- 6. Review table
+CREATE TABLE review (
+    reviewid VARCHAR(10) PRIMARY KEY,
+    userid VARCHAR(10),
+    res_id VARCHAR(10),
+    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    reviewtext VARCHAR(200),
+    timestamp DATE NOT NULL,
+    CONSTRAINT fk_userreview
+        FOREIGN KEY (userid) REFERENCES users(userid)
+        DEFERRABLE INITIALLY DEFERRED,
+    CONSTRAINT fk_resreview
+        FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
+        DEFERRABLE INITIALLY DEFERRED
 );
 
-CREATE TABLE ReportedReview(
-    --For Admin Moderation--
-    ReportID VARCHAR(10) PRIMARY KEY,
-    ReviewID VARCHAR(10),
-    ReportedBy VARCHAR(10),
-    Reason VARCHAR(200),--Or we can just do the tick box
-    Status ENUM('Pending', 'Reviewed', 'Dismissed') NOT NULL --Chat recommended
-    Timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP --Chat recommended
-	CONSTRAINT fk_RepReview
-    	FOREIGN KEY (ReviewID) REFERENCES Review(ReviewID)
-		DEFERRABLE INITIALLY DEFERRED,
-	CONSTRAINT fk_RepUser
-    	FOREIGN KEY (ReportedBy) REFERENCES User(UserID)
-		DEFERRABLE INITIALLY DEFERRED
+-- 7. ReportedReview table
+CREATE TABLE reportedreview (
+    reportid VARCHAR(10) PRIMARY KEY,
+    reviewid VARCHAR(10),
+    reportedby VARCHAR(10),
+    reason VARCHAR(200),
+    status INT NOT NULL,
+    timestamp DATE NOT NULL,
+    CONSTRAINT fk_repreview
+        FOREIGN KEY (reviewid) REFERENCES review(reviewid)
+        DEFERRABLE INITIALLY DEFERRED,
+    CONSTRAINT fk_repuser
+        FOREIGN KEY (reportedby) REFERENCES users(userid)
+        DEFERRABLE INITIALLY DEFERRED
 );
 
-CREATE TABLE Photo(
-    PhotoID VARCHAR(10) PRIMARY KEY,
-    ReviewID VARCHAR(10),
-    PhotoURL VARCHAR(200) UNIQUE,
-	CONSTRAINT fk_ReviewPhoto
-    	FOREIGN KEY (ReviewID) REFERENCES Review(ReviewID)
-		DEFERRABLE INITIALLY DEFERRED
+-- 8. Admin table
+CREATE TABLE admin (
+    adminid VARCHAR(10) PRIMARY KEY,
+    userid VARCHAR(10) UNIQUE,
+    permissionlevel INT NOT NULL,
+    CONSTRAINT fk_useradmin
+        FOREIGN KEY (userid) REFERENCES users(userid)
+        DEFERRABLE INITIALLY DEFERRED
 );
