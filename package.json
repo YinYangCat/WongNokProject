@@ -1,0 +1,42 @@
+{
+    "name": "wongnokproject",
+    "version": "1.0.0",
+    "description": "This is just a Colledge project nothing much\r updatee",
+    "main": "animation.js",
+    "dependencies": {
+        "@tailwindcss/cli": "^4.1.5",
+        "braces": "^3.0.3",
+        "detect-libc": "^1.0.3",
+        "enhanced-resolve": "^5.18.1",
+        "fill-range": "^7.1.1",
+        "graceful-fs": "^4.2.11",
+        "is-extglob": "^2.1.1",
+        "is-glob": "^4.0.3",
+        "is-number": "^7.0.0",
+        "jiti": "^2.4.2",
+        "lightningcss": "^1.29.2",
+        "lightningcss-win32-x64-msvc": "^1.29.2",
+        "micromatch": "^4.0.8",
+        "mri": "^1.2.0",
+        "node-addon-api": "^7.1.1",
+        "picocolors": "^1.1.1",
+        "picomatch": "^2.3.1",
+        "tailwindcss": "^4.1.5",
+        "tapable": "^2.2.1",
+        "to-regex-range": "^5.0.1"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "npx @tailwindcss/cli -i ./src/input.css -o ./main_work/style.css --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/YinYangCat/WongNokProject.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/YinYangCat/WongNokProject/issues"
+    },
+    "homepage": "https://github.com/YinYangCat/WongNokProject#readme"
+}
