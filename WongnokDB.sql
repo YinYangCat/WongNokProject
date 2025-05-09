@@ -1,12 +1,12 @@
 CREATE TABLE User(
     UserID VARCHAR(10) PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
-    Password VARCHAR(50) ???HASHED??? NOT NULL,
+    PasswordHash VARCHAR(255) NOT NULL,
     Email VARCHAR(50) NOT NULL UNIQUE,
-    PhoneNum INT NOT NULL UNIQUE,
-    ProfilePic VARCHAR(50), --It's PIC ID so what should I put--
+    PhoneNum VARCHAR(15) NOT NULL UNIQUE, --Phone num may include "+" for international format--
+    ProfilePhotoID VARCHAR(10),
     CONSTRAINT fk_ProfilePhoto
-		FOREIGN KEY (ProfilePic) REFERENCES Photo(PhotoID)
+		FOREIGN KEY (ProfilePhotoID) REFERENCES Photo(PhotoID)
 		DEFERRABLE INITIALLY DEFERRED
 );
 
@@ -33,8 +33,8 @@ CREATE TABLE Restaurant_Category(
     	FOREIGN KEY (Res_ID) REFERENCES Restaurants(Res_ID)
 		DEFERRABLE INITIALLY DEFERRED,
 	CONSTRAINT fk_JoinCat
-    	FOREIGN KEY (CategoryID) REFERENCES09 Category(CategoryID)
-		DEFERRABLE INITIALLY DEFERRED,
+    	FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
+		DEFERRABLE INITIALLY DEFERRED
 );
 
 CREATE TABLE Admin(
@@ -54,10 +54,10 @@ CREATE TABLE Review(
     ReviewText VARCHAR(200),
     Timestamp DATE NOT NULL,
 	CONSTRAINT fk_UserReview
-    	FOREIGN KEY UserID REFERENCES User(UserID)
+    	FOREIGN KEY (UserID) REFERENCES User(UserID)
 		DEFERRABLE INITIALLY DEFERRED,
 	CONSTRAINT fk_ResReview
-    	FOREIGN KEY ResID REFERENCES Restaurants(Res_ID)
+    	FOREIGN KEY (ResID) REFERENCES Restaurants(Res_ID)
 		DEFERRABLE INITIALLY DEFERRED
 );
 
@@ -67,8 +67,8 @@ CREATE TABLE ReportedReview(
     ReviewID VARCHAR(10),
     ReportedBy VARCHAR(10),
     Reason VARCHAR(200),--Or we can just do the tick box
-    Status INT NOT NULL,--Not sure--
-    Timestamp DATE NOT NULL,--Not sure--
+    Status ENUM('Pending', 'Reviewed', 'Dismissed') NOT NULL --Chat recommended
+    Timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP --Chat recommended
 	CONSTRAINT fk_RepReview
     	FOREIGN KEY (ReviewID) REFERENCES Review(ReviewID)
 		DEFERRABLE INITIALLY DEFERRED,
