@@ -8,7 +8,7 @@ CREATE TABLE photo (
 CREATE TABLE restaurants (
     res_id VARCHAR(15) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    phone_no VARCHAR(20) UNIQUE,
+    phone_no VARCHAR(20) NOT NULL,
     address VARCHAR(200),
     latitude FLOAT NOT NULL,
     longitude FLOAT NOT NULL,
@@ -87,3 +87,4 @@ CREATE TABLE admin (
         FOREIGN KEY (userid) REFERENCES users(userid)
         DEFERRABLE INITIALLY DEFERRED
 );
+
