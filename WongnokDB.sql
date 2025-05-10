@@ -2,13 +2,13 @@
 --DROP SCHEMA public CASCADE;
 
 -- 1. Photo table
-CREATE TABLE photo (
+CREATE TABLE photo(
     photoid SERIAL PRIMARY KEY,
     photourl VARCHAR(200) UNIQUE
 );
 
 -- 2. Restaurants table
-CREATE TABLE restaurants (
+CREATE TABLE restaurants(
     res_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     phone_no VARCHAR(20),
@@ -19,13 +19,13 @@ CREATE TABLE restaurants (
 );
 
 -- 3. Category table
-CREATE TABLE category (
+CREATE TABLE category(
     categoryid SERIAL PRIMARY KEY,
     categoryname VARCHAR(20) NOT NULL
 );
 
 -- 4. Restaurant_Category (Join Table)
-CREATE TABLE restaurant_category (
+CREATE TABLE restaurant_category(
     res_id VARCHAR(10),
     categoryid VARCHAR(10),
     CONSTRAINT fk_joinres
@@ -37,7 +37,7 @@ CREATE TABLE restaurant_category (
 );
 
 -- 5. Users table
-CREATE TABLE users (
+CREATE TABLE users(
     userid SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     password TEXT NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE users (
 );
 
 -- 6. Review table
-CREATE TABLE review (
+CREATE TABLE review(
     reviewid SERIAL PRIMARY KEY,
     userid VARCHAR(10),
     res_id VARCHAR(10),
@@ -66,7 +66,7 @@ CREATE TABLE review (
 );
 
 -- 7. ReportedReview table
-CREATE TABLE reportedreview (
+CREATE TABLE reportedreview(
     reportid SERIAL PRIMARY KEY,
     reviewid VARCHAR(10),
     reportedby VARCHAR(10),
@@ -82,7 +82,7 @@ CREATE TABLE reportedreview (
 );
 
 -- 8. Admin table
-CREATE TABLE admin (
+CREATE TABLE admin(
     adminid SERIAL PRIMARY KEY,
     userid VARCHAR(10) UNIQUE,
     permissionlevel INT NOT NULL,
@@ -97,4 +97,3 @@ CREATE TABLE admin (
 -- ALTER COLUMN userid SET DEFAULT nextval('users_userid_seq');
 
 -- ALTER SEQUENCE users_userid_seq OWNED BY users.userid;
-
