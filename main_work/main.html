@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WongNok-Main Page</title>
+    <title>WongNok - Main Page</title>
     <link href="./style.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -18,27 +18,31 @@
 
                 <!-- Logo -->
                 <a href="main.html" class="flex items-center space-x-2">
-                    <img class="h-8 w-auto" src="WongNok_Logo.png" alt="Wongnai Logo">
+                    <img class="h-8 w-auto" src="WongNok_Logo.png" alt="WongNok Logo">
                     <h3 class="text-2xl font-bold">WongNok</h3>
                 </a>
 
+                <!-- Search Bar -->
                 <div class="flex-1 mx-6 hidden md:block">
                     <div class="relative">
-                        <input type="text" placeholder="ค้นหาร้านอาหาร ชื่อเมนู ฯลฯ" class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        <input type="text" placeholder="Search for restaurants, menu items, etc." class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
                         <div class="absolute left-3 top-2.5 text-gray-400">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.65 6.15z" />
-              </svg>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.65 6.15z" />
+                            </svg>
                         </div>
                     </div>
                 </div>
+
+                <!-- Menu -->
                 <div class="flex items-center space-x-4">
-                    <a href="review.html" class="text-gray-700 hover:text-orange-500 text-sm font-medium">รีวิว</a>
-                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">ร้านอาหาร</a>
-                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">โปรโมชั่น</a>
+                    <a href="review.html" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Reviews</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Restaurants</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Promotions</a>
                     <a href="login.html" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">
-            เข้าสู่ระบบ
-          </a>
+                        Log In
+                    </a>
                 </div>
             </div>
         </div>
@@ -46,38 +50,45 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">แนะนำร้านอาหารยอดนิยม</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Top Recommended Restaurants</h1>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <!-- Card -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="ผัดไทย.jpg" alt="ร้านอาหาร" class="w-full h-48 object-cover">
+
+            <!-- Card 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:bg-gray-50">
+                <img src="ผัดไทย.jpg" alt="Restaurant" class="w-full h-48 object-cover transform hover:scale-105 transition duration-300">
                 <div class="p-4">
-                    <h2 class="text-xl font-semibold text-gray-800">ผัดไทย</h2>
-                    <p class="text-gray-600 text-sm">เมนูแนะนำ: ผัดไทย, ต้มยำกุ้ง</p>
-                    <div class="mt-2 text-orange-500 text-sm font-medium">★ 4.5 (200 รีวิว)</div>
-                </div>
-            </div>
-            <!-- More Cards -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="ก๋วยเตี๋ยวเรือ.jpg" alt="ร้านอาหาร" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-semibold text-gray-800">ก๋วยเตี๋ยวเรือ</h2>
-                    <p class="text-gray-600 text-sm">เมนูแนะนำ: ก๋วยเตี๋ยวเรือ, หมูสะเต๊ะ</p>
-                    <div class="mt-2 text-orange-500 text-sm font-medium">★ 4.2 (180 รีวิว)</div>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="ปูผัดผงกระหรี่.jpg" alt="ร้านอาหาร" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-semibold text-gray-800">ปูผัดผงกะหรี่</h2>
-                    <p class="text-gray-600 text-sm">เมนูแนะนำ: ปูผัดผงกะหรี่, กุ้งเผา</p>
-                    <div class="mt-2 text-orange-500 text-sm font-medium">★ 4.8 (300 รีวิว)</div>
+                    <h2 class="text-xl font-semibold text-gray-800">Pad Thai</h2>
+                    <p class="text-gray-600 text-sm">Recommended: Pad Thai, Tom Yum Goong</p>
+                    <div class="mt-2 text-orange-500 text-sm font-medium">★ 4.5 (200 reviews)</div>
+                    <a href="restaurant-detail.html" class="mt-3 inline-block bg-orange-500 text-white px-4 py-2 rounded-full text-sm hover:bg-orange-600 transition-colors">View Details</a>
                 </div>
             </div>
 
+            <!-- Card 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:bg-gray-50">
+                <img src="ก๋วยเตี๋ยวเรือ.jpg" alt="Restaurant" class="w-full h-48 object-cover transform hover:scale-105 transition duration-300">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Boat Noodles</h2>
+                    <p class="text-gray-600 text-sm">Recommended: Boat Noodles, Moo Satay</p>
+                    <div class="mt-2 text-orange-500 text-sm font-medium">★ 4.2 (180 reviews)</div>
+                    <a href="restaurant-detail.html" class="mt-3 inline-block bg-orange-500 text-white px-4 py-2 rounded-full text-sm hover:bg-orange-600 transition-colors">View Details</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:bg-gray-50">
+                <img src="ปูผัดผงกระหรี่.jpg" alt="Restaurant" class="w-full h-48 object-cover transform hover:scale-105 transition duration-300">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Stir-Fried Crab Curry</h2>
+                    <p class="text-gray-600 text-sm">Recommended: Crab Curry, Grilled Prawns</p>
+                    <div class="mt-2 text-orange-500 text-sm font-medium">★ 4.8 (300 reviews)</div>
+                    <a href="restaurant-detail.html" class="mt-3 inline-block bg-orange-500 text-white px-4 py-2 rounded-full text-sm hover:bg-orange-600 transition-colors">View Details</a>
+                </div>
+            </div>
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:justify-between items-center md:items-start space-y-8 md:space-y-0">
@@ -93,33 +104,28 @@
                 <!-- Footer Links -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center md:text-left">
                     <div>
-                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Section</h3>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Main Menu</h3>
                         <ul class="space-y-1 text-sm text-gray-600">
                             <li><a href="#" class="hover:text-orange-500">Home</a></li>
-                            <li><a href="#" class="hover:text-orange-500">Features</a></li>
-                            <li><a href="#" class="hover:text-orange-500">Pricing</a></li>
-                            <li><a href="#" class="hover:text-orange-500">FAQs</a></li>
-                            <li><a href="#" class="hover:text-orange-500">About</a></li>
+                            <li><a href="#" class="hover:text-orange-500">Restaurants</a></li>
+                            <li><a href="#" class="hover:text-orange-500">Promotions</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Section</h3>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Help</h3>
                         <ul class="space-y-1 text-sm text-gray-600">
-                            <li><a href="#" class="hover:text-orange-500">Contact us</a></li>
-                            <li><a href="#" class="hover:text-orange-500">Features</a></li>
-                            <li><a href="#" class="hover:text-orange-500">Pricing</a></li>
+                            <li><a href="#" class="hover:text-orange-500">Contact Us</a></li>
                             <li><a href="#" class="hover:text-orange-500">FAQs</a></li>
-                            <li><a href="#" class="hover:text-orange-500">About</a></li>
+                            <li><a href="#" class="hover:text-orange-500">Privacy Policy</a></li>
+                            <li><a href="#" class="hover:text-orange-500">Terms of Service</a></li>
                         </ul>
                     </div>
                     <div>
-                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Section</h3>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-2">About Us</h3>
                         <ul class="space-y-1 text-sm text-gray-600">
-                            <li><a href="#" class="hover:text-orange-500">Home</a></li>
-                            <li><a href="#" class="hover:text-orange-500">Features</a></li>
-                            <li><a href="#" class="hover:text-orange-500">Pricing</a></li>
-                            <li><a href="#" class="hover:text-orange-500">FAQs</a></li>
-                            <li><a href="#" class="hover:text-orange-500">About</a></li>
+                            <li><a href="#" class="hover:text-orange-500">Our Team</a></li>
+                            <li><a href="#" class="hover:text-orange-500">Careers</a></li>
+                            <li><a href="#" class="hover:text-orange-500">News</a></li>
                         </ul>
                     </div>
                 </div>

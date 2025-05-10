@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WongNok-รีวิวร้านอาหาร</title>
+    <title>WongNok - Restaurant Reviews</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -14,12 +14,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <a href="main.html" class="flex items-center space-x-2">
-                    <img class="h-8 w-auto" src="WongNok_Logo.png" alt="Wongnai Logo">
+                    <img class="h-8 w-auto" src="WongNok_Logo.png" alt="WongNok Logo">
                     <h3 class="text-2xl font-bold">WongNok</h3>
                 </a>
                 <div class="flex-1 mx-6 hidden md:block">
                     <div class="relative">
-                        <input type="text" placeholder="ค้นหาร้านอาหาร ชื่อเมนู ฯลฯ" class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        <input type="text" placeholder="Search for restaurants, menus, etc." class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
                         <div class="absolute left-3 top-2.5 text-gray-400">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.65 6.15z" />
@@ -28,10 +28,10 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="review.html" class="text-gray-700 hover:text-orange-500 text-sm font-medium">รีวิว</a>
-                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">ร้านอาหาร</a>
-                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">โปรโมชั่น</a>
-                    <a href="login.html" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">เข้าสู่ระบบ</a>
+                    <a href="review.html" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Reviews</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Restaurants</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Promotions</a>
+                    <a href="login.html" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">Login</a>
                 </div>
             </div>
         </div>
@@ -40,14 +40,14 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 mb-12">
         <div class="bg-white max-w-2xl mx-auto p-8 mt-24 rounded-xl shadow-lg">
-            <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">รีวิวร้านอาหาร</h1>
+            <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Restaurant Review</h1>
             <form class="space-y-5">
                 <div>
-                    <label for="restaurant" class="block text-sm font-medium text-gray-700">ชื่อร้านอาหาร</label>
+                    <label for="restaurant" class="block text-sm font-medium text-gray-700">Restaurant Name</label>
                     <input type="text" id="restaurant" name="restaurant" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">ให้คะแนน</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Rating</label>
                     <div id="rating" class="flex space-x-1 text-3xl text-gray-300 cursor-pointer">
                         <span data-star="1" class="star">★</span>
                         <span data-star="2" class="star">★</span>
@@ -58,11 +58,11 @@
                     <input type="hidden" name="rating" id="rating-value" value="0" />
                 </div>
                 <div>
-                    <label for="comment" class="block text-sm font-medium text-gray-700">ความคิดเห็น</label>
-                    <textarea id="comment" name="comment" rows="5" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="เขียนประสบการณ์ของคุณ..."></textarea>
+                    <label for="comment" class="block text-sm font-medium text-gray-700">Your Comment</label>
+                    <textarea id="comment" name="comment" rows="5" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Share your experience..."></textarea>
                 </div>
                 <div>
-                    <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-semibold transition duration-200">ส่งรีวิว</button>
+                    <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-semibold transition duration-200">Submit Review</button>
                 </div>
             </form>
         </div>
