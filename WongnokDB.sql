@@ -3,15 +3,15 @@
 
 -- 1. Photo table
 CREATE TABLE photo (
-    photoid VARCHAR(10) PRIMARY KEY,
+    photoid SERIAL PRIMARY KEY,
     photourl VARCHAR(200) UNIQUE
 );
 
 -- 2. Restaurants table
 CREATE TABLE restaurants (
-    res_id VARCHAR(15) PRIMARY KEY,
+    res_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    phone_no VARCHAR(20) NOT NULL,
+    phone_no VARCHAR(20),
     address VARCHAR(200),
     latitude FLOAT NOT NULL,
     longitude FLOAT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE restaurants (
 
 -- 3. Category table
 CREATE TABLE category (
-    categoryid VARCHAR(10) PRIMARY KEY,
+    categoryid SERIAL PRIMARY KEY,
     categoryname VARCHAR(20) NOT NULL
 );
 
@@ -38,11 +38,11 @@ CREATE TABLE restaurant_category (
 
 -- 5. Users table
 CREATE TABLE users (
-    userid VARCHAR(10) PRIMARY KEY,
+    userid SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     password TEXT NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
-    phonenum VARCHAR(15) NOT NULL UNIQUE,
+    phonenum VARCHAR(15) UNIQUE,
     profilepic VARCHAR(10),
     CONSTRAINT fk_profilephoto
         FOREIGN KEY (profilepic) REFERENCES photo(photoid)
@@ -51,7 +51,7 @@ CREATE TABLE users (
 
 -- 6. Review table
 CREATE TABLE review (
-    reviewid VARCHAR(10) PRIMARY KEY,
+    reviewid SERIAL PRIMARY KEY,
     userid VARCHAR(10),
     res_id VARCHAR(10),
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
@@ -67,7 +67,7 @@ CREATE TABLE review (
 
 -- 7. ReportedReview table
 CREATE TABLE reportedreview (
-    reportid VARCHAR(10) PRIMARY KEY,
+    reportid SERIAL PRIMARY KEY,
     reviewid VARCHAR(10),
     reportedby VARCHAR(10),
     reason VARCHAR(200),
@@ -83,11 +83,18 @@ CREATE TABLE reportedreview (
 
 -- 8. Admin table
 CREATE TABLE admin (
-    adminid VARCHAR(10) PRIMARY KEY,
+    adminid SERIAL PRIMARY KEY,
     userid VARCHAR(10) UNIQUE,
     permissionlevel INT NOT NULL,
     CONSTRAINT fk_useradmin
         FOREIGN KEY (userid) REFERENCES users(userid)
         DEFERRABLE INITIALLY DEFERRED
 );
+
+-- CREATE SEQUENCE users_userid_seq;
+
+-- ALTER TABLE users
+-- ALTER COLUMN userid SET DEFAULT nextval('users_userid_seq');
+
+-- ALTER SEQUENCE users_userid_seq OWNED BY users.userid;
 
