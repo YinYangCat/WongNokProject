@@ -46,7 +46,7 @@ CREATE TABLE users(
     password TEXT NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     phonenum VARCHAR(15) UNIQUE,
-    profilepic VARCHAR(10),
+    profilepic INT,
     CONSTRAINT fk_profilephoto
         FOREIGN KEY (profilepic) REFERENCES photo(photoid)
         DEFERRABLE INITIALLY DEFERRED
