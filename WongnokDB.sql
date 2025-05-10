@@ -26,8 +26,8 @@ CREATE TABLE category(
 
 -- 4. Restaurant_Category (Join Table)
 CREATE TABLE restaurant_category(
-    res_id VARCHAR(10),
-    categoryid VARCHAR(10),
+    res_id INT,
+    categoryid INT,
     CONSTRAINT fk_joinres
         FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
         DEFERRABLE INITIALLY DEFERRED,
@@ -52,8 +52,8 @@ CREATE TABLE users(
 -- 6. Review table
 CREATE TABLE review(
     reviewid SERIAL PRIMARY KEY,
-    userid VARCHAR(10),
-    res_id VARCHAR(10),
+    userid INT,
+    res_id INT,
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     reviewtext VARCHAR(200),
     timestamp DATE NOT NULL,
@@ -68,8 +68,8 @@ CREATE TABLE review(
 -- 7. ReportedReview table
 CREATE TABLE reportedreview(
     reportid SERIAL PRIMARY KEY,
-    reviewid VARCHAR(10),
-    reportedby VARCHAR(10),
+    reviewid INT,
+    reportedby INT,
     reason VARCHAR(200),
     status INT NOT NULL,
     timestamp DATE NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE reportedreview(
 -- 8. Admin table
 CREATE TABLE admin(
     adminid SERIAL PRIMARY KEY,
-    userid VARCHAR(10) UNIQUE,
+    userid INT UNIQUE,
     permissionlevel INT NOT NULL,
     CONSTRAINT fk_useradmin
         FOREIGN KEY (userid) REFERENCES users(userid)
