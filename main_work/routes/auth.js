@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const requireLogin = require('../middleware/authMiddleware');
+const pool = require('../db');
 
 router.post('/register', authController.register);//Register rount
 router.post('/login', authController.login);//Login rount

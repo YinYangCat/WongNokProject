@@ -11,6 +11,7 @@ const mainController = require('./controllers/mainController')
 const loginController = require('./controllers/loginController')
 const registerController = require('./controllers/registerController')
 const authRoutes = require('./routes/auth');
+const restaurantRoutes = require('./routes/restaurants');
 app.set('view engine', 'ejs')
 // app.set('views', path.join(__dirname, 'views'))//make sure it in views
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use('/', authRoutes)
+app.use('/', restaurantRoutes);
 
 app.get('/', mainController)
 app.get('/login', loginController)
