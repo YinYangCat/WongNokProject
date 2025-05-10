@@ -37,7 +37,7 @@ CREATE TABLE restaurant_category (
 CREATE TABLE users (
     userid VARCHAR(10) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
-    password BYTEA NOT NULL,
+    password TEXT NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     phonenum VARCHAR(15) NOT NULL UNIQUE,
     profilepic VARCHAR(10),
