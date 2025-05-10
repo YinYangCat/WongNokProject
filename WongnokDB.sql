@@ -1,3 +1,6 @@
+-- Drop everything
+--DROP SCHEMA public CASCADE;
+
 -- 1. Photo table
 CREATE TABLE photo (
     photoid VARCHAR(10) PRIMARY KEY,
