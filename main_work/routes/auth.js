@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
+const requireLogin = require('../middleware/authMiddleware');
 
 router.post('/register', authController.register);//Register rount
 router.post('/login', authController.login);//Login rount
-router.get('/main', (req, res) => {
-  res.render('main'); // This looks for views/main.ejs
+//Protect /main route with middleware
+router.get('/main', requireLogin, (req, res) => {
+  res.render('main');
 });
 
 module.exports = router;

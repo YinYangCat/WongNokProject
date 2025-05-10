@@ -14,6 +14,10 @@ const authRoutes = require('./routes/auth');
 app.set('view engine', 'ejs')
 // app.set('views', path.join(__dirname, 'views'))//make sure it in views
 
+//To track that user login or not
+global.loggedIn = null
+
+
 app.use(session({
     secret: 'node secret',
     resave: false,
@@ -25,10 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use('/', authRoutes)
-
-//To track that user login or not
-global.loggedIn = null
-
 
 app.get('/', mainController)
 app.get('/login', loginController)
