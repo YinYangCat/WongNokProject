@@ -1,12 +1,3 @@
-const { Pool } = require('pg')
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'Wongnok',
-    password: 'White20050403.',
-    port: 5432,
-})
-module.exports = pool;
 const express = require('express') //to receive request and repond
 const app = express() // ⬆
 const path = require('path')
@@ -31,9 +22,9 @@ app.use(session({
 app.use(flash())
 // Serve static files from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-app.use(express.urlencoded())
-app.use('/auth', authRoutes);
+app.use('/', authRoutes)
 
 //To track that user login or not
 global.loggedIn = null
