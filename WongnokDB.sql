@@ -12,7 +12,7 @@ CREATE TABLE photo(
 
 -- 2. Restaurants table
 CREATE TABLE restaurants(
-    res_id SERIAL PRIMARY KEY,
+    res_id VARCHAR(10) PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     phone_no VARCHAR(20),
     address VARCHAR(200),
@@ -29,7 +29,7 @@ CREATE TABLE category(
 
 -- 4. Restaurant_Category (Join Table)
 CREATE TABLE restaurant_category(
-    res_id INT,
+    res_id VARCHAR(10),
     categoryid INT,
     CONSTRAINT fk_joinres
         FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
@@ -56,7 +56,7 @@ CREATE TABLE users(
 CREATE TABLE review(
     reviewid SERIAL PRIMARY KEY,
     userid INT,
-    res_id INT,
+    res_id VARCHAR(10),
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     reviewtext VARCHAR(200),
     timestamp DATE NOT NULL,
