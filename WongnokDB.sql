@@ -16,9 +16,11 @@ CREATE TABLE restaurants(
     name VARCHAR(100) NOT NULL,
     phone_no VARCHAR(20),
     address VARCHAR(200),
-    latitude FLOAT NOT NULL,
-    longitude FLOAT NOT NULL,
-    avg_rating FLOAT NOT NULL
+    province VARCHAR(200) NOT NULL,
+    avg_rating FLOAT NOT NULL,
+	review_count INT NOT NULL,
+	open_time TIME NOT NULL,
+	close_time TIME NOT NULL
 );
 
 -- 3. Category table
