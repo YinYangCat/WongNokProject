@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= restaurant.name %> - WongNok</title>
+    <link href="./style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+
+                <!-- Logo -->
+                <a href="main.html" class="flex items-center space-x-2">
+                    <img class="h-8 w-auto" src="WongNok_Logo.png" alt="WongNok Logo">
+                    <h3 class="text-2xl font-bold">WongNok</h3>
+                </a>
+
+                <!-- Search Bar -->
+                <div class="flex-1 mx-6 hidden md:block">
+                    <div class="relative">
+                        <input type="text" placeholder="Search for restaurants, menu items, etc." class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                        <div class="absolute left-3 top-2.5 text-gray-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.65 6.15z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu -->
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Restaurants</a>
+                    <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Profile</a>
+                    <a href="login.html" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">
+                        Log In
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="w-full h-64 overflow-hidden relative">
+        <img src="/images/<%= restaurant.res_id %>.jpg" alt="Restaurant Banner" class="w-full h-full object-cover">
+        <div class="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white px-6 py-4">
+            <h1 class="text-3xl font-bold"><%= restaurant.name %></h1>
+            <p class="text-sm">★ <%= restaurant.avg_rating.toFixed(1) %> • <%= restaurant.type %> • <%= restaurant.address.split(',')[2] || 'Bangkok' %></p>
+        </div>
+    </div>
+
+    <!-- Restaurant Info -->
+    <section class="max-w-5xl mx-auto px-4 py-8">
+
+        <!-- Box ข้อมูลร้าน -->
+        <div class="bg-white rounded-lg shadow p-4 flex items-start space-x-4 mb-6">
+            <!-- Map Image -->
+            <img src="Map-locate.png" alt="Map" class="w-28 h-28 object-cover rounded">
+            <!-- Info -->
+            <div class="flex-1">
+                <p class="text-xl text-gray-800 mb-2"><%= restaurant.address %></p>
+                <p class="text-xl text-gray-800 mt-2">
+                    <span class="font-semibold">เบอร์โทร :</span> <%= restaurant.phone_no %>
+                    <span class="inline-block ml-2 text-gray-500">📞</span>
+                </p>
+
+            </div>
+        </div>
+
+        <!-- เมนูแนะนำ -->
+        <h2 class="text-2xl font-semibold mb-2">Recommended Menu</h2>
+        <p class="text-gray-700 mb-4"><%= restaurant.recommended_menu || 'No menu information available' %></p>
+
+
+        <!-- รีวิวลูกค้า -->
+        <div class="border-t pt-4 mt-4">
+            <h2 class="text-xl font-semibold mb-4">Customer Reviews</h2>
+
+            <!-- ช่องกรอกคอมเมนต์ -->
+            <form id="comment-form" class="py-5">
+                <textarea id="comment-input" class="w-full p-3 border border-gray-300 rounded-md mb-3" rows="4" placeholder="พิมพ์ความคิดเห็นของคุณ..."></textarea>
+                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">ส่งความคิดเห็น</button>
+            </form>
+
+            <!-- Review 1 -->
+            <% reviews.forEach(function(review) { %>
+                <div class="bg-white p-4 rounded-lg shadow mb-4">
+                    <div class="flex items-center mb-2">
+                    <img src="<%= review.avatar_url || 'https://i.pravatar.cc/40' %>" class="w-10 h-10 rounded-full mr-3" alt="User">
+                    <div>
+                        <p class="font-semibold text-gray-800"><%= review.username %></p>
+                        <p class="text-sm text-gray-500">★ <%= review.rating %> • <%= review.created_at.toLocaleDateString() %></p>
+                    </div>
+                    </div>
+                    <p class="text-gray-700"><%= review.comment %></p>
+                </div>
+                <% }) %>
+
+
+
+            <!-- Review 2 Temp-->
+            <div class="bg-white p-4 rounded-lg shadow mb-4">
+                <div class="flex items-center mb-2">
+                    <img src="https://i.pravatar.cc/40?img=2" class="w-10 h-10 rounded-full mr-3" alt="User">
+                    <div>
+                        <p class="font-semibold text-gray-800">FoodieBoy</p>
+                        <p class="text-sm text-gray-500">★ 4 • 5 days ago</p>
+                    </div>
+                </div>
+                <p class="text-gray-700">Pad Thai ดีงามมาก แต่รอนานนิดนึง</p>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>

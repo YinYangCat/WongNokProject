@@ -16,3 +16,21 @@ module.exports = async (req, res) => {
     res.status(500).send('Server Error');
   }
 };
+
+exports.detail_res = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const result = await pool.query('SELECT * FROM restaurant WHERE res_id = $1', [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).send('Restaurant not found');
+    }
+
+    const restaurant = result.rows[0];
+    res.render('detail_res', { restaurant });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+};

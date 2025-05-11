@@ -67,6 +67,8 @@ exports.login = async (req, res) => {
       return res.render('login', { errors: ['Invalid email or password']});
     }
 
+    req.session.userId = user.userid; // VERY IMPORTANT
+
     // 3. If successful, create a session (or token, depending on setup)
     // For now, simple redirect
     res.redirect('/main'); // change this to wherever you want after login
