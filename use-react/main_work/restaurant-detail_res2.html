@@ -83,10 +83,23 @@
         <div class="border-t pt-4 mt-4">
             <h2 class="text-xl font-semibold mb-4">Customer Reviews</h2>
 
-            <!-- ช่องกรอกคอมเมนต์ -->
+            <!-- Comment form -->
+            <!-- Star Rating -->
+            <div class="flex items-center mb-3 space-x-1">
+                <span class="text-gray-700 font-medium mr-2 text-lg">Your Rating:</span>
+                <span class="star text-gray-300 cursor-pointer text-2xl">★</span>
+                <span class="star text-gray-300 cursor-pointer text-2xl">★</span>
+                <span class="star text-gray-300 cursor-pointer text-2xl">★</span>
+                <span class="star text-gray-300 cursor-pointer text-2xl">★</span>
+                <span class="star text-gray-300 cursor-pointer text-2xl">★</span>
+            </div>
+
+
+
+            <!-- Comment Box -->
             <form id="comment-form" class="py-5">
-                <textarea id="comment-input" class="w-full p-3 border border-gray-300 rounded-md mb-3" rows="4" placeholder="พิมพ์ความคิดเห็นของคุณ..."></textarea>
-                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">ส่งความคิดเห็น</button>
+                <textarea id="comment-input" class="w-full p-3 border border-gray-300 rounded-md mb-3" rows="4" placeholder="Type your comment..."></textarea>
+                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">Submit Review</button>
             </form>
 
             <!-- Review 1 -->
@@ -116,6 +129,7 @@
         </div>
     </section>
 
+    <script src="rating.js"></script>
 </body>
 
 </html>

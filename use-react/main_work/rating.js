@@ -1,4 +1,4 @@
-// rating.js
+// file name : rating.js
 const stars = document.querySelectorAll(".star");
 const ratingInput = document.getElementById("rating-value");
 

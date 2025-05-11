@@ -15,7 +15,6 @@
     <nav class="bg-white shadow sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-
                 <!-- Logo -->
                 <a href="main.html" class="flex items-center space-x-2">
                     <img class="h-8 w-auto" src="WongNok_Logo.png" alt="WongNok Logo">
@@ -39,16 +38,24 @@
                 <div class="flex items-center space-x-4">
                     <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Restaurants</a>
                     <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Profile</a>
-                    <a href="login.html" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">Log In</a>
+                    <a href="login.html" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">Log
+            In</a>
                 </div>
-
             </div>
         </div>
     </nav>
 
-    <!-- Login Section -->
-    <section id="login" class="flex items-center justify-center min-h-screen p-6 bg-gray-50">
-        <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+    <!-- Login Section with blurred background -->
+    <section class="relative min-h-screen flex items-center justify-center bg-gray-50 overflow-hidden">
+
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="restaurant_bg.jpg" alt="Background" class="w-full h-full object-cover blur-sm">
+            <div class="absolute inset-0 bg-white bg-opacity-30 backdrop-blur-sm"></div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="relative z-10 w-full max-w-md bg-white bg-opacity-90 backdrop-blur-md shadow-lg rounded-lg p-8">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Login</h2>
             <form class="space-y-5">
                 <div>
@@ -78,7 +85,6 @@
     <footer class="bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row md:justify-between items-center md:items-start space-y-8 md:space-y-0">
-
                 <!-- Logo & Copyright -->
                 <div class="text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start space-x-2">
