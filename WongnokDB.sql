@@ -18,9 +18,9 @@ CREATE TABLE restaurants(
     address VARCHAR(200),
     province VARCHAR(200) NOT NULL,
     avg_rating FLOAT NOT NULL,
-	review_count INT NOT NULL,
-	open_time TIME NOT NULL,
-	close_time TIME NOT NULL
+    review_count INT NOT NULL,
+    open_time TIME NOT NULL,
+    close_time TIME NOT NULL
 );
 
 -- 3. Category table
