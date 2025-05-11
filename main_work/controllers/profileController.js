@@ -5,8 +5,7 @@ const userId = req.session.userId;
 if (!userId) return res.redirect('/login');
 
 try {
-// Join with photo table to get the image filename
-const result = await pool.query('SELECT u.name, u.email, p.photourl FROM users u LEFT JOIN photo p ON u.profilepic = p.photoid WHERE u.userid = $1',[userId]);
+const result = await pool.query('SELECT name, email FROM users WHERE userid = $1', [userId]);
 const user = result.rows[0];
 res.render('profile', { user });
 } catch (err) {

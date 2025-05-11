@@ -2,23 +2,11 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db'); // Adjust path if needed
 
-// Show all restaurants
-router.get('/restaurants', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM restaurants ORDER BY name');
-    const restaurants = result.rows;
 
-    res.render('main', { restaurants });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
-
-// View restaurant detail
-router.get('/restaurants/:id', async (req, res) => {
+// More specific route first
+router.get('/detail/:id', async (req, res) => {
   const restaurantId = req.params.id;
-
+  console.log('Requested detail for restaurantId:', restaurantId);
   try {
     const restaurantResult = await pool.query(
       'SELECT * FROM restaurants WHERE res_id = $1',
@@ -44,6 +32,19 @@ router.get('/restaurants/:id', async (req, res) => {
     const reviews = reviewsResult.rows;
 
     res.render('detail_res', { restaurant, reviews });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+// Then generic one LAST
+router.get('/', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM restaurants ORDER BY name');
+    const restaurants = result.rows;
+
+    res.render('main', { restaurants });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
