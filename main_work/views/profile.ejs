@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Profile - NerveBar</title>
+<link href="./style.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+      <nav class="bg-white shadow sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <a href="/" class="flex items-center space-x-2">
+        <img class="h-8 w-auto" src="/WongNok_Logo.png" alt="Wongnok Logo">
+        <h3 class="text-2xl font-bold">WongNok</h3>
+      </a>
+
+      <div class="flex-1 mx-6 hidden md:block">
+        <div class="relative">
+          <input type="text" placeholder="Search for restaurants, menu items, etc." class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+          <div class="absolute left-3 top-2.5 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.65 6.15z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Profile</a>
+        <a href="/login" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">Sign In</a>
+      </div>
+    </div>
+  </div>
+</nav>
+  
+  <!-- Main Content (Profile Section) -->
+  <main class="flex-grow">
+      <section class="max-w-2xl mx-auto mt-12 bg-white rounded-lg shadow-md p-8">
+          <h1 class="text-2xl font-bold text-gray-800 mb-6">User Profile</h1>
+
+          <div class="flex flex-col items-center space-y-6">
+              <!-- Profile Picture -->
+             <% if (user.photourl) { %>
+<img src="/uploads/<%= user.photourl %>" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover" />
+<% } else { %>
+
+<div class="w-32 h-32 bg-gray-300 rounded-full flex items-center justify-center text-gray-600">No Photo</div> <% } %>
+
+              <!-- Username -->
+              <!-- Username --> <div class="w-full"> <label class="block text-sm font-medium text-gray-700 mb-1">Username</label> <div class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"> <%= user.name %> </div> </div> 
+              <!-- Email --> <div class="w-full"> <label class="block text-sm font-medium text-gray-700 mb-1">Email</label> <div class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"> <%= user.email %> </div> </div> 
+               
+
+<!-- Edit Button -->
+<button id="editProfileBtn" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 mt-4">Edit Profile</button>
+
+<!-- Admin Button (only for admins) -->
+<% if (user.isadmin == true) { %>
+    <button onclick="location.href='/admin'" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 mt-4">
+        Manage Restaurants
+    </button>
+<% } %>
+
+
+<!-- Editable Forms (Hidden by Default) -->
+<div id="editForms" class="w-full mt-6 space-y-4 hidden">
+  <!-- Edit Username and Password Form -->
+  <form action="/profile/update" method="POST" class="w-full space-y-4">
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700">New Username</label>
+      <input type="text" name="name" id="name" class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2" required>
+    </div>
+    <div>
+      <label for="password" class="block text-sm font-medium text-gray-700">New Password</label>
+      <input type="password" name="password" id="password" class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2" required>
+    </div>
+    <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600">Save Changes</button>
+  </form>
+
+  <!-- Profile Picture Form -->
+  <form action="/profile/update" method="POST" enctype="multipart/form-data" class="w-full space-y-4">
+    <div>
+      <label for="profilepic" class="block text-sm font-medium text-gray-700">Upload Profile Picture</label>
+      <input type="file" name="profilepic" id="profilepic" class="mt-1 block w-full">
+    </div>
+    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Upload Photo</button>
+  </form>
+</div>
+
+<!-- Toggle Script -->
+
+<script>
+    const editBtn = document.getElementById("editProfileBtn");
+    const editForms = document.getElementById("editForms");
+    const adminBtn = document.getElementById("adminPanelBtn");
+
+    editBtn.addEventListener("click", () => {
+        editForms.classList.toggle("hidden");
+    });
+
+    if (adminBtn) {
+        adminBtn.addEventListener("click", () => {
+            window.location.href = "/admin";
+        });
+    }
+</script>
+
+
+
+
+
+          </div>
+      </section>
+  </main>
+
+  <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-10">
+  <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:justify-between items-center md:items-start space-y-8 md:space-y-0">
+      <div class="text-center md:text-left">
+        <div class="flex items-center justify-center md:justify-start space-x-2">
+          <img src="/WongNok_Logo.png" alt="Logo" class="h-6 w-6">
+          <span class="text-sm text-gray-600">© 2025</span>
+        </div>
+      </div>
+
+      <!-- Footer Links -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center md:text-left">
+        <% for (let i = 0; i < 3; i++) { %>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-900 mb-2">Section</h3>
+            <ul class="space-y-1 text-sm text-gray-600">
+              <li><a href="#" class="hover:text-orange-500">Home</a></li>
+              <li><a href="#" class="hover:text-orange-500">Features</a></li>
+              <li><a href="#" class="hover:text-orange-500">Pricing</a></li>
+              <li><a href="#" class="hover:text-orange-500">FAQs</a></li>
+              <li><a href="#" class="hover:text-orange-500">About</a></li>
+            </ul>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+</body>
