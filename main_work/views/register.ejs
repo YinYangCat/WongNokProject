@@ -7,129 +7,79 @@
   <title>WongNok - SignIn</title>
   <link href="/css/style.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    html {
-      height: 100%;
-    }
-  </style>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-gray-50">
 
   <!-- Navbar -->
   <nav class="bg-white shadow sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16 items-center">
         <a href="/" class="flex items-center space-x-2">
-          <img class="h-8 w-auto" src="WongNok_Logo.png" alt="WongNok Logo">
+          <img class="h-8 w-auto" src="/WongNok_Logo.png" alt="Wongnok Logo">
           <h3 class="text-2xl font-bold">WongNok</h3>
         </a>
-        <form method="GET" action="/search" class="flex gap-2 items-center">
-          <!-- Restaurant Name Search -->
-          <div class="relative flex-1">
-            <input type="text" name="name" placeholder="Search by restaurant name"
-              class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
+
+        <div class="flex-1 mx-6 hidden md:block">
+          <div class="relative">
+            <input type="text" placeholder="Search for restaurants, menu items, etc." class="w-full border border-gray-200 rounded-full py-2 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-orange-500" />
             <div class="absolute left-3 top-2.5 text-gray-400">
-              <!-- Magnifying glass icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.65 6.15z" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.65 6.15z" />
               </svg>
             </div>
           </div>
-
-          <!-- Province Search -->
-          <div class="flex-1">
-            <input type="text" name="province" placeholder="Search by province"
-              class="w-full border border-gray-200 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-orange-500" />
-          </div>
-
-          <button type="submit"
-            class="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-4 py-2">Search</button>
-        </form>
+        </div>
 
         <div class="flex items-center space-x-4">
           <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Profile</a>
-          <a href="/login"
-            class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">
-            Log In
-          </a>
+          <a href="/login" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">Sign In</a>
         </div>
       </div>
     </div>
   </nav>
 
   <!-- Register Form -->
-  <div class="flex-grow flex items-center justify-center px-4">
+  <div class="min-h-screen flex items-center justify-center px-4">
     <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
       <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">WongNok</h2>
 
-      <!-- Profile Picture Upload -->
-      <form action="/auth/register" method="POST" enctype="multipart/form-data">
-        <div class="flex flex-col items-center">
-          <input type="file" id="profile-picture" name="profile-picture" accept="image/*" class="hidden"
-            onchange="previewImage(event)" />
-          <label for="profile-picture"
-            class="relative group w-28 h-28 rounded-full overflow-hidden shadow-lg border-2 border-gray-200 cursor-pointer transition duration-300 hover:scale-105">
-            <img id="profile-preview" src="https://via.placeholder.com/150?text=+" alt="Upload Profile"
-              class="object-cover w-full h-full transition-opacity duration-300" />
-            <div
-              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15 10l4.553 2.276A1 1 0 0120 13.118V17a2 2 0 01-2 2H6a2 2 0 01-2-2v-3.882a1 1 0 01.447-.842L9 10m3 0l3-3m0 0l3 3m-3-3v12" />
-              </svg>
-            </div>
-          </label>
-        </div>
-      </form>
-
       <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-      <ul class="mb-4 text-sm text-red-600 list-disc list-inside">
-        <% errors.forEach(function(error) { %>
-        <li><%= error %></li>
-        <% }) %>
-      </ul>
+        <ul class="mb-4 text-sm text-red-600 list-disc list-inside">
+          <% errors.forEach(function(error) { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
       <% } %>
 
-      <form action="/register" method="POST" enctype="multipart/form-data" class="space-y-5">
+      <form action="/register" method="POST" class="space-y-5">
         <!-- Username -->
         <div>
           <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-          <input type="text" id="username" name="username"
-            value="<%= typeof username !== 'undefined' ? username : '' %>" required
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+          <input type="text" id="username" name="username" value="<%= typeof username !== 'undefined' ? username : '' %>" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
         </div>
 
         <!-- Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" id="email" name="email"
-            value="<%= typeof email !== 'undefined' ? email : '' %>" required
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+          <input type="email" id="email" name="email" value="<%= typeof email !== 'undefined' ? email : '' %>" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
         </div>
 
         <!-- Password -->
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-          <input type="password" id="password" name="password" required
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+          <input type="password" id="password" name="password" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
         </div>
 
         <!-- Confirm Password -->
         <div>
           <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" required
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
+          <input type="password" id="confirmPassword" name="confirmPassword" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
         </div>
 
         <!-- Submit -->
         <div>
-          <button type="submit"
-            class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-semibold transition duration-200">Create
-            Account</button>
+          <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-semibold transition duration-200">Create Account</button>
         </div>
       </form>
 
@@ -140,10 +90,9 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-gray-200 mt-6">
+  <footer class="bg-white border-t border-gray-200 mt-10">
     <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-      <div
-        class="flex flex-col md:flex-row md:justify-between items-center md:items-start space-y-8 md:space-y-0">
+      <div class="flex flex-col md:flex-row md:justify-between items-center md:items-start space-y-8 md:space-y-0">
         <div class="text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start space-x-2">
             <img src="/WongNok_Logo.png" alt="Logo" class="h-6 w-6">
@@ -154,16 +103,16 @@
         <!-- Footer Links -->
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-center md:text-left">
           <% for (let i = 0; i < 3; i++) { %>
-          <div>
-            <h3 class="text-sm font-semibold text-gray-900 mb-2">Section</h3>
-            <ul class="space-y-1 text-sm text-gray-600">
-              <li><a href="#" class="hover:text-orange-500">Home</a></li>
-              <li><a href="#" class="hover:text-orange-500">Features</a></li>
-              <li><a href="#" class="hover:text-orange-500">Pricing</a></li>
-              <li><a href="#" class="hover:text-orange-500">FAQs</a></li>
-              <li><a href="#" class="hover:text-orange-500">About</a></li>
-            </ul>
-          </div>
+            <div>
+              <h3 class="text-sm font-semibold text-gray-900 mb-2">Section</h3>
+              <ul class="space-y-1 text-sm text-gray-600">
+                <li><a href="#" class="hover:text-orange-500">Home</a></li>
+                <li><a href="#" class="hover:text-orange-500">Features</a></li>
+                <li><a href="#" class="hover:text-orange-500">Pricing</a></li>
+                <li><a href="#" class="hover:text-orange-500">FAQs</a></li>
+                <li><a href="#" class="hover:text-orange-500">About</a></li>
+              </ul>
+            </div>
           <% } %>
         </div>
       </div>

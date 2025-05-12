@@ -4,13 +4,12 @@ module.exports = async (req, res) => {
   try {
     const allRestaurants = await pool.query('SELECT * FROM restaurants');
     const topRestaurants = await pool.query(
-      'SELECT *, (avg_rating * 0.7 + LOG(1 + review_count) * 0.3) AS score FROM restaurants ORDER BY score DESC LIMIT 3;'
+      'SELECT * FROM restaurants ORDER BY avg_rating DESC LIMIT 3'
     );
 
     res.render('main', {
       restaurants: allRestaurants.rows,
       topRestaurants: topRestaurants.rows,
-      query: req.query
     });
   } catch (err) {
     console.error(err);

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db'); // adjust to your PG config
 
-router.get('/restaurant/:id', async (req, res) => {
+router.get('/restaurants/:id', async (req, res) => {
   const restaurantId = req.params.id;
 
   try {
@@ -19,6 +19,5 @@ router.get('/restaurant/:id', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
 
 module.exports = router;
