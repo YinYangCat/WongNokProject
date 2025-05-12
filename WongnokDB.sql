@@ -67,6 +67,9 @@ CREATE TABLE admin(
         FOREIGN KEY (userid) REFERENCES users(userid)
 );
 
+--INSERT INTO Admin (UserID,permissionlevel)
+--VALUES ('1',2);
+
 -- CREATE SEQUENCE users_userid_seq;
 
 -- ALTER TABLE users
