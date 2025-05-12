@@ -1,4 +1,5 @@
--- Drop everything
+
+-- If you want to Drop everything use line 3-6 (Remove the -- part)
 --DROP SCHEMA public CASCADE;
 --CREATE SCHEMA public;
 --GRANT ALL ON SCHEMA public TO postgres;
@@ -50,7 +51,7 @@ CREATE TABLE review(
     timestamp DATE NOT NULL,
     CONSTRAINT fk_userreview
         FOREIGN KEY (userid) REFERENCES users(userid)
-            ON DELETE CASCADE
+            ON DELETE CASCADE,
     CONSTRAINT fk_resreview
         FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
             ON DELETE CASCADE
@@ -67,12 +68,12 @@ CREATE TABLE admin(
         FOREIGN KEY (userid) REFERENCES users(userid)
 );
 
+--Add users to the Admin table to be able to manage restaurants
 --INSERT INTO Admin (UserID,permissionlevel)
 --VALUES ('1',2);
 
+--No need you can just drop all and run the create table again (from the 1-6 line)
 -- CREATE SEQUENCE users_userid_seq;
-
 -- ALTER TABLE users
 -- ALTER COLUMN userid SET DEFAULT nextval('users_userid_seq');
-
 -- ALTER SEQUENCE users_userid_seq OWNED BY users.userid;
