@@ -2,23 +2,35 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db'); // Adjust path if needed
 
-// Show all restaurants
-router.get('/restaurants', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM restaurants ORDER BY name');
-    const restaurants = result.rows;
+// Insert a review
+router.post('/submit', async (req, res) => {
+    if (!req.session.user || !req.session.user.userid) {
+        return res.status(401).send('You must be logged in to submit a review');
+    }
 
-    res.render('main', { restaurants });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
+    const userId = req.session.user.userid;
+    const { res_id, reviewtext, rating } = req.body;
+
+    try {
+        await pool.query(
+            'INSERT INTO review (userid, res_id, rating, reviewtext, timestamp) VALUES ($1, $2, $3, $4, CURRENT_DATE)',
+            [userId, res_id, rating, reviewtext]
+        );
+
+        res.redirect('/restaurants/detail/' + res_id);
+    } catch (err) {
+        console.error('Review insert error:', err);
+        res.status(500).send('Server error');
+    }
 });
 
-// View restaurant detail
-router.get('/restaurants/:id', async (req, res) => {
-  const restaurantId = req.params.id;
 
+module.exports = router;
+
+// More specific route first
+router.get('/detail/:id', async (req, res) => {
+  const restaurantId = req.params.id;
+  console.log('Requested detail for restaurantId:', restaurantId);
   try {
     const restaurantResult = await pool.query(
       'SELECT * FROM restaurants WHERE res_id = $1',
@@ -44,6 +56,19 @@ router.get('/restaurants/:id', async (req, res) => {
     const reviews = reviewsResult.rows;
 
     res.render('detail_res', { restaurant, reviews });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+// Then generic one LAST
+router.get('/', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM restaurants ORDER BY name');
+    const restaurants = result.rows;
+
+    res.render('main', { restaurants });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');
