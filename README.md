@@ -1,3 +1,2 @@
 # WongNokProject -House Version-
-Don't use file with "(old)"
-update
+This project is the part of Final project in the CPE241 Database System, KMUTT
