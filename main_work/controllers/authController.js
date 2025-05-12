@@ -3,43 +3,55 @@ const bcrypt = require('bcrypt');
 
 exports.register = async (req, res) => {
   const { username, email, password, confirmPassword } = req.body;
+  const file = req.file; // ⬅️ File from the upload middleware
 
-  // Basic validation
   if (password !== confirmPassword) {
-  return res.render('register', { errors: ['Passwords do not match'], username, email });
+    return res.render('register', {
+      errors: ['Passwords do not match'],
+      username,
+      email,
+    });
   }
 
   try {
-
-    console.log("Before DB test");
-    // await pool.query('SELECT NOW()'); // 👈 Quick DB test
-    // console.log("after DB test");
-
-    // Check if user already exists
-    const userCheck = await pool.query('SELECT * FROM users WHERE email = $1 OR name = $2', [email, username]);
-    if (userCheck.rows.length > 0) {
-      return res.render('register', { errors: ['Email or username already taken'], username, email });
-    }
-    console.log("after Check test");
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 12);
-    console.log("after hash test");
-
-    // Insert user into DB
-    await pool.query(
-      'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
-      [username, email, hashedPassword]
+    // Check if the user already exists
+    const userCheck = await pool.query(
+      'SELECT * FROM users WHERE email = $1 OR name = $2',
+      [email, username]
     );
-    console.log("After DBsuccess test");
+    if (userCheck.rows.length > 0) {
+      return res.render('register', {
+        errors: ['Email or username already taken'],
+        username,
+        email,
+      });
+    }
 
-    // Redirect to login page after successful registration
-    res.redirect('/login');
+    // Save the profile picture if it exists
+    let photoId = null;
+    if (file) {
+      const photoResult = await pool.query(
+        'INSERT INTO photo (photourl) VALUES ($1) RETURNING photoid',
+        [file.filename]
+      );
+      photoId = photoResult.rows[0].photoid;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    await pool.query(
+      'INSERT INTO users (name, email, password, profilepic) VALUES ($1, $2, $3, $4)',
+      [username, email, hashedPassword, photoId]
+    );
+
+    res.redirect('/auth/login');
   } catch (err) {
     console.error('Registration error:', err);
     res.status(500).send('Server error');
   }
 };
+
+
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -69,9 +81,18 @@ exports.login = async (req, res) => {
 
     req.session.userId = user.userid; // VERY IMPORTANT
 
-    // 3. If successful, create a session (or token, depending on setup)
-    // For now, simple redirect
-    res.redirect('/main'); // change this to wherever you want after login
+    // 3. Create session
+    // authController.js
+req.session.userId = user.userid; // VERY IMPORTANT
+req.session.user = {
+    id: user.userid,
+    name: user.name,
+    email: user.email,
+    photourl: user.photourl
+};
+
+
+    res.redirect('/'); // or wherever you want to go after login
 
   } catch (err) {
     console.error('Login error:', err);
