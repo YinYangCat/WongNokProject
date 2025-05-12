@@ -21,25 +21,12 @@ CREATE TABLE restaurants(
     review_count INT NOT NULL,
     open_time TIME NOT NULL,
     close_time TIME NOT NULL
+    respic INT,
+    CONSTRAINT fk_resphoto
+        FOREIGN KEY (respic) REFERENCES  photo(photoid)
+    
 );
 
--- 3. Category table
-CREATE TABLE category(
-    categoryid SERIAL PRIMARY KEY,
-    categoryname VARCHAR(20) NOT NULL
-);
-
--- 4. Restaurant_Category (Join Table)
-CREATE TABLE restaurant_category(
-    res_id VARCHAR(10),
-    categoryid INT,
-    CONSTRAINT fk_joinres
-        FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
-        DEFERRABLE INITIALLY DEFERRED,
-    CONSTRAINT fk_joincat
-        FOREIGN KEY (categoryid) REFERENCES category(categoryid)
-        DEFERRABLE INITIALLY DEFERRED
-);
 
 -- 5. Users table
 CREATE TABLE users(
@@ -51,7 +38,6 @@ CREATE TABLE users(
     profilepic INT,
     CONSTRAINT fk_profilephoto
         FOREIGN KEY (profilepic) REFERENCES photo(photoid)
-        DEFERRABLE INITIALLY DEFERRED
 );
 
 -- 6. Review table
@@ -64,27 +50,11 @@ CREATE TABLE review(
     timestamp DATE NOT NULL,
     CONSTRAINT fk_userreview
         FOREIGN KEY (userid) REFERENCES users(userid)
-        DEFERRABLE INITIALLY DEFERRED,
     CONSTRAINT fk_resreview
         FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
-        DEFERRABLE INITIALLY DEFERRED
 );
 
--- 7. ReportedReview table
-CREATE TABLE reportedreview(
-    reportid SERIAL PRIMARY KEY,
-    reviewid INT,
-    reportedby INT,
-    reason VARCHAR(200),
-    status INT NOT NULL,
-    timestamp DATE NOT NULL,
-    CONSTRAINT fk_repreview
-        FOREIGN KEY (reviewid) REFERENCES review(reviewid)
-        DEFERRABLE INITIALLY DEFERRED,
-    CONSTRAINT fk_repuser
-        FOREIGN KEY (reportedby) REFERENCES users(userid)
-        DEFERRABLE INITIALLY DEFERRED
-);
+
 
 -- 8. Admin table
 CREATE TABLE admin(
@@ -93,7 +63,6 @@ CREATE TABLE admin(
     permissionlevel INT NOT NULL,
     CONSTRAINT fk_useradmin
         FOREIGN KEY (userid) REFERENCES users(userid)
-        DEFERRABLE INITIALLY DEFERRED
 );
 
 -- CREATE SEQUENCE users_userid_seq;
