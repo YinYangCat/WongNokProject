@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 exports.register = async (req, res) => {
   const { username, email, password, confirmPassword } = req.body;
-  const profilePic = req.file ? req.file.filename : null;
+  const file = req.file;
 
   if (password !== confirmPassword) {
     return res.render('register', {
@@ -14,6 +14,7 @@ exports.register = async (req, res) => {
   }
 
   try {
+    // Check if user exists
     const userCheck = await pool.query(
       'SELECT * FROM users WHERE email = $1 OR name = $2',
       [email, username]
@@ -26,11 +27,21 @@ exports.register = async (req, res) => {
       });
     }
 
+    let photoId = null;
+    if (file) {
+      // Insert photo and get its id
+      const photoResult = await pool.query(
+        'INSERT INTO photo (photourl) VALUES ($1) RETURNING photoid',
+        [file.filename]
+      );
+      photoId = photoResult.rows[0].photoid;
+    }
+
     const hashedPassword = await bcrypt.hash(password, 12);
 
     await pool.query(
       'INSERT INTO users (name, email, password, profilepic) VALUES ($1, $2, $3, $4)',
-      [username, email, hashedPassword, profilePic]
+      [username, email, hashedPassword, photoId]
     );
 
     res.redirect('/login');
@@ -39,6 +50,7 @@ exports.register = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -70,7 +82,7 @@ exports.login = async (req, res) => {
 
     // 3. Create session
     req.session.user = {
-      userid: user.userid,         // or user.id based on your DB
+      id: user.userid,         // or user.id based on your DB
       name: user.name,         // optional: save any field you want
       email: user.email
     };

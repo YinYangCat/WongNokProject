@@ -5,17 +5,21 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const router = express.Router();
 
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+
+const authRoutes = require('./routes/auth')
 const authController = require('./controllers/authController')
 const mainController = require('./controllers/mainController')
-// const homeController = require('./controllers/homeController')
 const loginController = require('./controllers/loginController')
 const registerController = require('./controllers/registerController')
 const profileController = require('./controllers/profileController')
-const authRoutes = require('./routes/auth')
 const restaurantRoutes = require('./routes/restaurants')
 const mainRoutes = require('./routes/main');
 const searchRoutes = require('./routes/search');
 const reviewRoutes = require('./routes/review');
+const profileRoutes = require('./routes/profile');
+const adminRoutes = require('./routes/admin');
 app.set('view engine', 'ejs')
 // app.set('views', path.join(__dirname, 'views'))//make sure it in views
 
@@ -36,8 +40,6 @@ app.use(session({
 app.use(flash())
 // Serve static files from the "public" folder
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.urlencoded({ extended: false }))
-app.use(express.json())
 
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
@@ -45,14 +47,16 @@ app.use((req, res, next) => {
 });//middleware
 app.use(express.static('public'));
 
-app.use('/', authRoutes)
+app.use('/auth', authRoutes)
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/profile', profileRoutes);
 app.use('/', searchRoutes);
 app.use('/review', reviewRoutes);
 app.use('/restaurants', restaurantRoutes);
 app.use('/', mainRoutes);
-
+app.use('/', adminRoutes);
 app.get('/', mainController)
-app.get('/login', loginController)
+app.get('/auth/login', loginController);
 app.get('/profile', profileController)
 app.get('/register', registerController)
 

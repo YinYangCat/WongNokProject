@@ -55,13 +55,13 @@
                 <div class="flex items-center space-x-4">
                     <% if (user){ %>
                         <a href="/profile" class="block h-8 w-8 rounded-full overflow-hidden border-2 border-gray-300 hover:border-orange-500">
-                            <img src="<%= user.profilepic ? '/images/' + user.profilepic + '.jpg' : '/images/default-avatar.jpg' %>" alt="Profile Picture" class="h-full w-full object-cover">
+                            <img src="<%= user.photourl ? '/uploads/' + user.photourl : '/images/default-avatar.jpg' %>" alt="Profile Picture">
                         </a>
                     <% } %>
 
                     <% if (!user) { %>
                         <a href="/profile" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Profile</a>
-                        <a href="/login" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">
+                        <a href="/auth/login" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">
                             Log In
                       </a>
                     <% } %>
@@ -114,21 +114,21 @@
             <h2 class="text-xl font-semibold mb-4">Customer Reviews</h2>
             <div>
                 <form id="comment-form" action="/review/submit" method="POST" class="py-5">
-                <div id="rating" class="flex space-x-1 text-3xl text-gray-300 cursor-pointer">
-                    <span class="text-gray-700 font-medium mr-2 text-lg">Your Rating:</span>
-                    <span data-star="1" class="star">★</span>
-                    <span data-star="2" class="star">★</span>
-                    <span data-star="3" class="star">★</span>
-                    <span data-star="4" class="star">★</span>
-                    <span data-star="5" class="star">★</span>
-                </div>
-                <input type="hidden" name="rating" id="rating-value" value="0" />
-            </div>
-            <!-- Comment Section -->
-                <textarea name="comment" id="comment-input" class="w-full p-3 border border-gray-300 rounded-md mb-3" rows="4" placeholder="Type your comment..."></textarea>
-                <input type="hidden" name="restaurantId" value="<%= restaurant.res_id %>" />
-                <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">Submit</button>
-            </form>
+                    <div id="rating" class="flex space-x-1 text-3xl text-gray-300 cursor-pointer">
+                        <span class="text-gray-700 font-medium mr-2 text-lg">Your Rating:</span>
+                        <span data-star="1" class="star">★</span>
+                        <span data-star="2" class="star">★</span>
+                        <span data-star="3" class="star">★</span>
+                        <span data-star="4" class="star">★</span>
+                        <span data-star="5" class="star">★</span>
+                    </div>
+                    <input type="hidden" name="rating" id="rating-value" value="0" />
+
+                    <textarea name="reviewtext" id="comment-input" class="w-full p-3 border border-gray-300 rounded-md mb-3" rows="4" placeholder="Type your comment..." required></textarea>
+                    <input type="hidden" name="res_id" value="<%= restaurant.res_id %>" />
+                    <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">Submit</button>
+                </form>
+
             <% reviews.forEach(review => { %>
                 <div class="bg-white p-4 rounded-lg shadow mb-4">
                     <div class="flex items-center mb-2">

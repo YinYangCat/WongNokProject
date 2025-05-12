@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
+const requireLogin = require('../middleware/authMiddleware');
 
 // router.post('/submit', (req, res) => {
 //   console.log('BODY:', req.body);
@@ -19,12 +20,16 @@ router.get('/restaurant/:id', async (req, res) => {
 
         // Fetch reviews for this restaurant
         const reviewsResult = await pool.query(`
-            SELECT r.rating, r.reviewtext AS comment, r.timestamp, u.name
+            SELECT r.reviewtext, r.rating, r.timestamp,
+                    u.name AS username,
+                    p.photourl AS avatar_url
             FROM review r
             JOIN users u ON r.userid = u.userid
+            LEFT JOIN photo p ON u.profilepic = p.photoid
             WHERE r.res_id = $1
             ORDER BY r.timestamp DESC
         `, [restaurantId]);
+
 
         const reviews = reviewsResult.rows;
 
@@ -35,22 +40,24 @@ router.get('/restaurant/:id', async (req, res) => {
     }
 });
 
-router.post('/submit', async (req, res) => {
-  const { res_id, reviewtext, rating } = req.body;
-  const userId = req.session.user.userid; // Example if using sessions
+router.post('/submit', requireLogin, async (req, res) => {
+    console.log('Submitting review as user:', req.user);
 
-  try {
+    const userId = req.user.userid; // Example if using sessions
+    const { res_id, reviewtext, rating } = req.body;
+    console.log('Submitting review with:', { userId, res_id, rating, reviewtext });
+    try {
     await pool.query(
-      'INSERT INTO review (reviewid, userid, res_id, rating, reviewtext, timestamp) VALUES ($1, $2, $3, $4, $5, CURRENT_DATE)',
-      ['r123', userId, res_id, rating, reviewtext]
+        'INSERT INTO review (userid, res_id, rating, reviewtext, timestamp) VALUES ($1, $2, $3, $4, CURRENT_DATE)',
+        [userId, res_id, rating, reviewtext]
     );
 
     res.redirect('/restaurants/detail/' + res_id);
-  } catch (err) {
-    console.error('Review insert error:', err);
-    res.status(500).send('Failed to submit review');
-  }
-});
+    } catch (err) {
+        console.error('Review insert error:', err);
+        res.status(500).send('Failed to submit review');
+    }
+    });
 
 
 module.exports = router;

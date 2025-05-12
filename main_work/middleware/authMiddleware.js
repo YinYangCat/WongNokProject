@@ -1,23 +1,28 @@
-const pool = require('../db'); // use the actual db file, not index.js
+// authMiddleware.js
+const pool = require('../db');
 
 module.exports = (req, res, next) => {
   const userId = req.session.userId;
 
   if (!userId) {
-    return res.redirect('/login'); // better UX to redirect to login
+    return res.redirect('/login');
   }
 
-  pool.query('SELECT * FROM users WHERE userid = $1', [userId]) // make sure column name is correct
-    .then(result => {
+  pool.query('SELECT * FROM users WHERE userid = $1', [userId])
+    .then(async result => {
       if (result.rows.length === 0) {
-        return res.redirect('/login'); // not found = not logged in
+        return res.redirect('/login');
       }
 
-      // Optionally store the user data for use in views/controllers
       req.user = result.rows[0];
-      res.locals.user = result.rows[0]; // for use in EJS templates if needed
+      res.locals.user = result.rows[0];
 
-      console.log('User verified:', result.rows[0].name);
+      // Check if the user is an admin
+      const adminCheck = await pool.query('SELECT * FROM admin WHERE userid = $1', [userId]);
+      req.user.isadmin = adminCheck.rows.length > 0;
+      res.locals.user.isadmin = req.user.isadmin; // make sure this line is here
+
+      console.log('User verified:', result.rows[0].name, "Admin:", req.user.isadmin);
       next();
     })
     .catch(err => {

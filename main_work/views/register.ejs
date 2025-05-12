@@ -51,7 +51,7 @@
 
         <div class="flex items-center space-x-4">
           <a href="#" class="text-gray-700 hover:text-orange-500 text-sm font-medium">Profile</a>
-          <a href="/login"
+          <a href="/auth/login"
             class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded-full transition-colors">
             Log In
           </a>
@@ -65,8 +65,8 @@
     <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
       <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">WongNok</h2>
 
-      <!-- Profile Picture Upload -->
-      <form action="/auth/register" method="POST" enctype="multipart/form-data">
+      <form action="/auth/register" method="POST" enctype="multipart/form-data" class="space-y-5">
+        <!-- Profile Picture -->
         <div class="flex flex-col items-center">
           <input type="file" id="profile-picture" name="profile-picture" accept="image/*" class="hidden"
             onchange="previewImage(event)" />
@@ -77,37 +77,25 @@
             <div
               class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M15 10l4.553 2.276A1 1 0 0120 13.118V17a2 2 0 01-2 2H6a2 2 0 01-2-2v-3.882a1 1 0 01.447-.842L9 10m3 0l3-3m0 0l3 3m-3-3v12" />
               </svg>
             </div>
           </label>
         </div>
-      </form>
 
-      <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
-      <ul class="mb-4 text-sm text-red-600 list-disc list-inside">
-        <% errors.forEach(function(error) { %>
-        <li><%= error %></li>
-        <% }) %>
-      </ul>
-      <% } %>
-
-      <form action="/register" method="POST" enctype="multipart/form-data" class="space-y-5">
         <!-- Username -->
         <div>
-          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-          <input type="text" id="username" name="username"
-            value="<%= typeof username !== 'undefined' ? username : '' %>" required
+          <label for="name" class="block text-sm font-medium text-gray-700">Username</label>
+          <input type="text" id="name" name="username" required
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
         </div>
 
         <!-- Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" id="email" name="email"
-            value="<%= typeof email !== 'undefined' ? email : '' %>" required
+          <input type="email" id="email" name="email" required
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500">
         </div>
 
@@ -128,13 +116,14 @@
         <!-- Submit -->
         <div>
           <button type="submit"
-            class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-semibold transition duration-200">Create
-            Account</button>
+            class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md font-semibold transition duration-200">
+            Create Account
+          </button>
         </div>
       </form>
 
       <p class="mt-4 text-center text-sm text-gray-600">
-        Already have account? <a href="/login" class="text-orange-500 hover:underline">Sign In</a>
+        Already have account? <a href="/auth/login" class="text-orange-500 hover:underline">Sign In</a>
       </p>
     </div>
   </div>

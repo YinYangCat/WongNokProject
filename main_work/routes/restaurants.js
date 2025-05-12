@@ -2,6 +2,30 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db'); // Adjust path if needed
 
+// Insert a review
+router.post('/submit', async (req, res) => {
+    if (!req.session.user || !req.session.user.userid) {
+        return res.status(401).send('You must be logged in to submit a review');
+    }
+
+    const userId = req.session.user.userid;
+    const { res_id, reviewtext, rating } = req.body;
+
+    try {
+        await pool.query(
+            'INSERT INTO review (userid, res_id, rating, reviewtext, timestamp) VALUES ($1, $2, $3, $4, CURRENT_DATE)',
+            [userId, res_id, rating, reviewtext]
+        );
+
+        res.redirect('/restaurants/detail/' + res_id);
+    } catch (err) {
+        console.error('Review insert error:', err);
+        res.status(500).send('Server error');
+    }
+});
+
+
+module.exports = router;
 
 // More specific route first
 router.get('/detail/:id', async (req, res) => {
