@@ -12,7 +12,7 @@
     <div class="max-w-3xl mx-auto py-12">
         <h1 class="text-3xl font-bold mb-6">Edit Restaurant</h1>
 
-        <form action="/admin/edit/<%= restaurant.res_id %>" method="POST" class="space-y-4 bg-white shadow rounded-lg p-8">
+        <form action="/admin/edit/<%= restaurant.res_id %>" method="POST" enctype="multipart/form-data" class="space-y-4 bg-white shadow rounded-lg p-8">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Restaurant Name</label>
                 <input type="text" name="name" id="name" value="<%= restaurant.name %>" class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2" required>
@@ -45,7 +45,7 @@
                 <label for="close_time" class="block text-sm font-medium text-gray-700">Close Time</label>
                 <input type="time" name="close_time" id="close_time" value="<%= restaurant.close_time %>" class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2" required>
             </div>
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save Changes</button>
+<div> <label for="photo" class="block text-sm font-medium text-gray-700">Restaurant Photo</label> <% if (restaurant.photourl) { %> <img src="/uploads/<%= restaurant.photourl %>" alt="Restaurant Photo" class="w-32 h-32 object-cover mb-2 rounded-md"> <% } else { %> <div class="w-32 h-32 bg-gray-200 text-gray-500 flex items-center justify-center mb-2 rounded-md">No Image</div> <% } %> <input type="file" name="photo" id="photo" class="mt-1 block w-full border border-gray-300 rounded-md px-4 py-2"> </div>            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save Changes</button>
         </form>
     </div>
 </body>
