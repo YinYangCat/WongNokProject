@@ -50,8 +50,10 @@ CREATE TABLE review(
     timestamp DATE NOT NULL,
     CONSTRAINT fk_userreview
         FOREIGN KEY (userid) REFERENCES users(userid)
+            ON DELETE CASCADE
     CONSTRAINT fk_resreview
         FOREIGN KEY (res_id) REFERENCES restaurants(res_id)
+            ON DELETE CASCADE
 );
 
 
