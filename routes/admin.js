@@ -131,5 +131,22 @@ console.error('Error updating restaurant:', err);
 res.status(500).send('Server error');
 }
 });
+// Delete restaurant
+router.post('/admin/delete/:res_id', requireLogin, async (req, res) => {
+    if (!req.user.isadmin) {
+        return res.status(403).send('Forbidden: You are not an admin');
+    }
+
+    const res_id = req.params.res_id;
+
+    try {
+        await pool.query('DELETE FROM restaurants WHERE res_id = $1', [res_id]);
+        res.redirect('/admin');
+    } catch (err) {
+        console.error('Error deleting restaurant:', err);
+        res.status(500).send('Server error');
+    }
+});
+
 
 module.exports = router;    
