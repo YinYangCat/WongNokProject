@@ -126,3 +126,7 @@ WongNokProject/
 ## Author
 
 Veerawat Leesakul (House) — [GitHub](https://github.com/YinYangCat) · [LinkedIn](https://www.linkedin.com/in/veerawat-leesakul)
+Run Prajunban (Non) — [GitHub](https://github.com/RunPrajunban) · [LinkedIn](https://www.linkedin.com/in/runprajunban)
+Noppharoot Bavornkijsutee (Nop) — [GitHub](https://github.com/NOPDEJA) · [LinkedIn](https://www.linkedin.com/in/noppharoot-bavorn)
+Nattawat Ruensumrit (Tai) — [GitHub](https://github.com/Nattawat1409) · [LinkedIn](https://www.linkedin.com/in/nattawat-ruensumrit-8010a32a7)
+ 
