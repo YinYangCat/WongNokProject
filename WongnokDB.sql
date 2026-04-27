@@ -20,7 +20,11 @@ CREATE TABLE restaurants(
     avg_rating FLOAT NOT NULL,
     review_count INT NOT NULL,
     open_time TIME NOT NULL,
-    close_time TIME NOT NULL
+    close_time TIME NOT NULL,
+    respic INT,
+    CONSTRAINT fk_respic
+        FOREIGN KEY (respic) REFERENCES photo(photoid)
+        DEFERRABLE INITIALLY DEFERRED
 );
 
 -- 3. Category table

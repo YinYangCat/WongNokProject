@@ -59,6 +59,7 @@ app.get('/auth/login', loginController);
 app.get('/profile', profileController)
 app.get('/register', registerController)
 
-app.listen(4000, () => {
-  console.log('Server running on port 4000')
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
 })

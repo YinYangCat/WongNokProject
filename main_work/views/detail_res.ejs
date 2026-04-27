@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%= restaurant.name %> - WongNok</title>
-    <link href="./style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-50">
@@ -79,7 +78,7 @@
 
     <!-- Banner -->
     <div class="w-full h-64 overflow-hidden relative">
-        <img src="/uploads/<%= restaurant.image %>" alt="Restaurant Banner" class="w-full h-full object-cover">
+        <img src="<%= restaurant.photourl ? '/uploads/' + restaurant.photourl : '/images/default-restaurant.jpg' %>" alt="Restaurant Banner" class="w-full h-full object-cover">
         <div class="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white px-6 py-4">
             <h1 class="text-3xl font-bold"><%= restaurant.name %></h1>
             <p class="text-sm">★ <%= restaurant.avg_rating.toFixed(1) %> • <%= restaurant.type %> • <%= restaurant.address.split(',')[2] || 'Bangkok' %></p>
@@ -134,7 +133,7 @@
                     <div class="flex items-center mb-2">
                         <img src="<%= review.avatar_url || 'https://i.pravatar.cc/40' %>" class="w-10 h-10 rounded-full mr-3" alt="User">
                         <div>
-                            <p class="font-semibold text-gray-800"><%= review.name %></p>
+                            <p class="font-semibold text-gray-800"><%= review.username %></p>
                             <p class="text-sm text-gray-500">
                                 ★ <%= review.rating %> •
                                 <%= new Date(review.timestamp).toLocaleDateString('en-US', {
@@ -147,7 +146,7 @@
                             </p>
                         </div>
                     </div>
-                    <p class="text-gray-700"><%= review.comment %></p>
+                    <p class="text-gray-700"><%= review.reviewtext %></p>
                 </div>
             <% }) %>
 
